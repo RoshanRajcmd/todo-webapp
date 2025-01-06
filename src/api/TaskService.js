@@ -5,10 +5,6 @@ const GET_ALL_TASKS = 'getAllTasks';
 const CREATE_TASK = 'createTask';
 
 export async function getAllTasks() {
-    // const data = localStorage.getItem("todos");
-    // if (data) {
-    //     setTodos(JSON.parse(data));
-    // }
     try {
         return await axios.get(`${API_URL}/${GET_ALL_TASKS}`);
     }
