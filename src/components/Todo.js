@@ -46,7 +46,7 @@ export const Todo = ({ task, onTaskAdded }) => {
       {isEditing ? (
         <form onSubmit={() => handleChangeSubmit(task)} className="TodoForm">
           <input type="text" value={newTaskDesc} onChange={(e) => setNewTaskDesc(e.target.value)} className="todo-input" placeholder='Update task' />
-          <button type="submit" className='todo-btn'>Add Task</button>
+          <button type="submit" className='todo-btn'>Update</button>
         </form>
       ) :
         (
