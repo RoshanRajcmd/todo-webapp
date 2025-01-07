@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { Todo } from "./Todo";
 import { TodoForm } from "./TodoForm";
-import { EditTodoForm } from "./EditTodoForm";
 import { getAllTasks, deleteTask, editTaskDec, setTaskComplete } from "../api/TaskService";
 
 export const Home = () => {
@@ -29,21 +28,15 @@ export const Home = () => {
   return (
     <div className="TodoWrapper">
       <h1>Get Things Done !</h1>
-      <TodoForm onTodoAdded={handleTasksUpdated} />
+      <TodoForm onTaskAdded={handleTasksUpdated} />
+      <span className="guide">Click the Task Description to Mark as Complete</span>
       {/* display Tasks */}
       {todos.map((todo) =>
-        todo.isEditing ? (
-          <EditTodoForm editTodo={editTaskDec} task={todo} />
-        ) :
-          (
-            <Todo
-              key={todo.ID}
-              task={todo}
-              deleteTask={deleteTask}
-              editTodo={editTaskDec}
-              setTaskComplete={setTaskComplete}
-            />
-          )
+        <Todo
+          key={todo.ID}
+          task={todo}
+          onTaskAdded={handleTasksUpdated}
+        />
       )}
     </div>
   );

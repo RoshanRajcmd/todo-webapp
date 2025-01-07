@@ -3,6 +3,8 @@ import axios from "axios";
 const API_URL = 'http://localhost:3000/todos';
 const GET_ALL_TASKS = 'getAllTasks';
 const CREATE_TASK = 'createTask';
+const DELETE_TASK = 'deleteTask';
+const UPDATE_TASK = 'updateTask';
 
 export async function getAllTasks() {
     try {
@@ -16,11 +18,7 @@ export async function getAllTasks() {
     }
 }
 
-export async function addTodo(taskDec) {
-    // setTodos([
-    //     ...todos,
-    //     { id: uuidv4(), task: todo, completed: false, isEditing: false },
-    // ]);
+export async function addTask(taskDec) {
     try {
         var task = { Content: taskDec, IsCompleted: false };
         return await axios.post(`${API_URL}/${CREATE_TASK}`, JSON.stringify(task), { headers: { 'Content-Type': 'application/json' } });
@@ -33,22 +31,31 @@ export async function addTodo(taskDec) {
     }
 }
 
-export async function deleteTask(id) {
-    //setTodos(todos.filter((todo) => todo.id !== id));
+export async function deleteTask(taskId) {
+    try {
+        return await axios.delete(`${API_URL}/${DELETE_TASK}/${taskId}`);
+    }
+    catch (err) {
+        if (!err?.response)
+            console.log("No Server Response");
+        else
+            console.log("Validation API Failed" + err.code + err.message);
+    }
 }
 
-export async function setTaskComplete(id) {
-    // setTodos(
-    //     todos.map((todo) =>
-    //         todo.id === id ? { ...todo, completed: !todo.completed } : todo
-    //     )
-    // );
-}
-
-export async function editTaskDec(task, id) {
+export async function updateTask(updatedTask, taskId) {
     // setTodos(
     //     todos.map((todo) =>
     //         todo.id === id ? { ...todo, task, isEditing: !todo.isEditing } : todo
     //     )
     // );
+    try {
+        return await axios.put(`${API_URL}/${UPDATE_TASK}/${taskId}`, JSON.stringify(updatedTask), { headers: { 'Content-Type': 'application/json' } });
+    }
+    catch (err) {
+        if (!err?.response)
+            console.log("No Server Response");
+        else
+            console.log("Validation API Failed" + err.code + err.message);
+    }
 };

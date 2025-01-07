@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
-import { addTodo } from '../api/TaskService'
+import { addTask } from '../api/TaskService'
 
-export const TodoForm = ({ onTodoAdded }) => {
+export const TodoForm = ({ onTaskAdded }) => {
   const [taskDesc, setTaskDesc] = useState('');
 
   const handleSubmit = async (e) => {
@@ -9,10 +9,10 @@ export const TodoForm = ({ onTodoAdded }) => {
     e.preventDefault();
     if (taskDesc.trim !== '') {
       // add todo
-      var resp = await addTodo(taskDesc);
+      var resp = await addTask(taskDesc);
       if (resp?.status === 200) {
         console.log('Task added successfully');
-        onTodoAdded();
+        onTaskAdded();
       }
       else {
         console.log('Failed to add task');
